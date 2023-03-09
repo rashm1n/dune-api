@@ -7,6 +7,12 @@
 This is Dune API. A comprehensive Public RESTful API to obtain data about Frank Herbert's Dune Universe. The API includes data about the Books, Films,
 Characters, Planets and Quotes present in the Dune Universe. Much more data will be added later also. 
 
+### Technologies
+Dune API is created with an **API-First** approach using **Spring Boot 3** and **Java 17**. Core libraries which are used
+* spring-web
+* spring-data-jpa
+* openapi-generator
+
 #### Authentication
 No authentication needed to use the Dune API since it is intended to be a public API.
 
