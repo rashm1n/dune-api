@@ -1,0 +1,282 @@
+openapi: 3.0.3
+info:
+  title: Dune API
+  version: 1.0.0
+  description: An API to get details about the Dune Universe created by Frank Herbert
+servers:
+  - url: 'http://localhost:8080'
+paths:
+  /books:
+    get:
+      description: Get all books in the Dune Universe
+      responses:
+        '200':
+          description: Successful get books operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Book'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '404':
+          $ref: '#/components/responses/ResourceNotFound'
+
+  /books/{id}:
+    get:
+      description: Get a book by id
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Book successfully retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '404':
+          $ref: '#/components/responses/ResourceNotFound'
+
+  /characters:
+    get:
+      description: Get all the characters in Dune Universe
+      responses:
+        '200':
+          description: List of characters in the Dune Universe
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Character'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '404':
+          $ref: '#/components/responses/ResourceNotFound'
+  /characters/{id}:
+    get:
+      description: Get a charactors in the Dune Universe
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: A character in the Dune Universe
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Character'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '404':
+          $ref: '#/components/responses/ResourceNotFound'
+  /planets:
+    get:
+      description: Get all the planets in Dune Universe
+      responses:
+        '200':
+          description: List of planets in the Dune Universe
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Planet'
+  /planets/{id}:
+    get:
+      description: Get a planet in the Dune Universe
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: A planet in the Dune Universe
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Planet'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '404':
+          $ref: '#/components/responses/ResourceNotFound'
+  /quotes:
+    get:
+      description: Get some quotes from the Dune Universe
+      responses:
+        '200':
+          description: A List of quotes from the Dune Universe
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Quote'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '404':
+          $ref: '#/components/responses/ResourceNotFound'
+  /quotes/{id}:
+    get:
+      description: Get a quote from the Dune Universe
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: A quote from the Dune Universe
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Quote'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '404':
+          $ref: '#/components/responses/ResourceNotFound'
+  /films:
+    get:
+      description: Get all the films based on the Dune Universe
+      responses:
+        '200':
+          description: List of films based on the Dune Universe
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Film'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '404':
+          $ref: '#/components/responses/ResourceNotFound'
+  /films/{id}:
+    get:
+      description: Get a film based on the Dune Universe
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: A film based on the Dune Universe
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Film'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '404':
+          $ref: '#/components/responses/ResourceNotFound'
+
+components:
+  responses:
+    InternalServerError:
+      description: Internal server error.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Exception'
+    ResourceNotFound:
+      description: 404 Resource Not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Exception'
+
+  schemas:
+    Book:
+      description: A book in Dune universe
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        author:
+          type: string
+        publishedYear:
+          type: string
+        characters:
+          type: array
+          items:
+            type: string
+    Character:
+      description: A character in Dune Universe
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        appearsIn:
+          type: array
+          items:
+            type: string
+
+    Planet:
+      description: A planet in the Dune universe
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        appearsIn:
+          type: array
+          items:
+              type: string
+    Quote:
+      description: A quote from the Dune universe
+      type: object
+      properties:
+        id:
+          type: integer
+        quote:
+          type: string
+        saidBy:
+            type: string
+        appearsIn:
+            type: string
+    Film:
+      description: A film based on the Dune universe
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        director:
+          type: string
+        basedOn:
+            type: string
+        appearingCharacters:
+          type: array
+          items:
+              type: string
+    Exception:
+      description: Common exception
+      type: object
+      properties:
+        status:
+          type: integer
+        type:
+          type: string
+        message:
+          type: string
